@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>  
 <RelativeLayout    
-    android:id="@+id/RelativeLayout02"    
+    android:id="@+id/RelativeLayout01"    
     android:layout_width="fill_parent"    
     xmlns:android="http://schemas.android.com/apk/res/android"    
     android:layout_height="wrap_content"    
@@ -9,7 +9,7 @@
     android:paddingRight="12dip">
 
 <TextView
-    android:id="@+id/RestName"
+    android:id="@+id/DishName"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
@@ -18,12 +18,12 @@
     android:textSize="25sp" />
 
 <TextView
-    android:id="@+id/Distance"
+    android:id="@+id/DishPrice"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignBottom="@+id/RestName"
-    android:layout_marginLeft="45dp"
-    android:layout_toRightOf="@+id/RestName"
+    android:layout_alignBottom="@+id/DishName"
+    android:layout_marginLeft="40dp"
+    android:layout_toRightOf="@+id/DishName"
     android:text="TextView02"
     android:textSize="20sp" />
   

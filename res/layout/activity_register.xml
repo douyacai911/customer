@@ -8,57 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegisterActivity" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="34dp"
-        android:text="@string/password" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/username" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="34dp"
-        android:text="确认密码" />
-
-    <EditText
-        android:id="@+id/pwdText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignLeft="@+id/userText"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/userText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_marginLeft="27dp"
-        android:layout_toRightOf="@+id/textView3"
-        android:ems="10"
-        android:inputType="text" >
-
-        <requestFocus />
-
-    </EditText>
-
     <EditText
         android:id="@+id/pwdText2"
         android:layout_width="wrap_content"
@@ -85,15 +34,15 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/pwdText2"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="35dp"
         android:text="Email" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView4"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginBottom="103dp"
         android:text="@string/register" />
 
@@ -107,5 +56,58 @@
         android:ems="10"
         android:inputType="textEmailAddress" >
     </EditText>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mPrice"
+        android:layout_below="@+id/pwdText"
+        android:layout_marginTop="35dp"
+        android:text="确认密码" />
+
+    <EditText
+        android:id="@+id/userText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/button1"
+        android:layout_marginTop="57dp"
+        android:ems="10"
+        android:inputType="text" >
+
+        <requestFocus />
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/mDishname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/userText"
+        android:layout_alignBottom="@+id/userText"
+        android:layout_alignLeft="@+id/mPrice"
+        android:text="@string/username" />
+
+    <EditText
+        android:id="@+id/pwdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mPrice"
+        android:layout_alignBottom="@+id/mPrice"
+        android:layout_alignLeft="@+id/userText"
+        android:ems="10"
+        android:inputType="textPassword" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/mPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_below="@+id/userText"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/password" />
 
 </RelativeLayout>

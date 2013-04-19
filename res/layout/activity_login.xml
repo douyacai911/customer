@@ -8,34 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="43dp"
-        android:text="@string/username" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignLeft="@+id/editText1"
-        android:ems="10"
-        android:inputType="textPassword" >
-    </EditText>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="34dp"
-        android:text="@string/password" />
-
     <ProgressBar
         android:id="@+id/waitingBar"
         style="?android:attr/progressBarStyleLarge"
@@ -46,19 +18,57 @@
         android:layout_marginTop="56dp"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/mPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mDishname"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="36dp"
+        android:text="@string/password" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mPrice"
+        android:layout_alignBottom="@+id/mPrice"
+        android:layout_toRightOf="@+id/loginBtn"
+        android:ems="10"
+        android:inputType="textPassword" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/mDishname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/username" />
+
     <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_alignBaseline="@+id/mDishname"
+        android:layout_alignBottom="@+id/mDishname"
+        android:layout_toRightOf="@+id/loginBtn"
         android:ems="10"
         android:inputType="text" >
-        <requestFocus />
+
+        <requestFocus />
 
     </EditText>
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mPrice"
+        android:layout_centerVertical="true"
+        android:text="@string/login" />
 
     <Button
         android:id="@+id/registerBtn"
@@ -67,16 +77,6 @@
         android:layout_alignBaseline="@+id/loginBtn"
         android:layout_alignBottom="@+id/loginBtn"
         android:layout_alignRight="@+id/editText2"
-        android:layout_marginRight="10dp"
         android:text="@string/register" />
-
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="14dp"
-        android:text="@string/login" />
 
 </RelativeLayout>

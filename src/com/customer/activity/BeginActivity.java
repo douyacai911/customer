@@ -11,7 +11,6 @@ import org.json.JSONObject;
 
 import com.customer.activity.R;
 import com.customer.util.HttpUtil;
-
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -23,10 +22,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class BeginActivity extends Activity {
 	private int customerid = 0;
@@ -70,6 +72,27 @@ public class BeginActivity extends Activity {
 		
 		
 		new Thread(progressThread).start();
+		// 添加点击
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				
+				HashMap<String, Object> thisrest = (HashMap<String, Object>) arg0.getItemAtPosition(arg2);
+				int thisrestid = (Integer) thisrest.get("restid");
+				boolean isdelivery = (Boolean) thisrest.get("delivery");
+				String restname = (String) thisrest.get("restname");
+				Intent intent = new Intent().setClass(BeginActivity.this, MenuActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putInt("restid", thisrestid);
+				bundle.putBoolean("delivery",isdelivery);
+				bundle.putString("restname", restname);
+				bundle.putInt("customerid", customerid);
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
 		
 		this.mainHandler = new Handler() {
 			@Override
@@ -140,10 +163,13 @@ public class BeginActivity extends Activity {
 				double distance = rest.getDouble("distance");
 				String restname = rest.getString("restname");
 				int restid = rest.getInt("restid");
-				map.put("distance", distance);
+				boolean delivery = rest.getBoolean("delivery");
+				map.put("distance", "相距 "+String.valueOf(distance)+" 米");
 				map.put("restname", restname);
+				map.put("delivery", delivery);
 				map.put("restid", restid);
 				map.put("index", i);
+				
 				listItem.add(map);
 			}
 			return listItem;

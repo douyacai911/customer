@@ -59,6 +59,22 @@
             android:name="com.customer.activity.TestActivity"
             android:label="@string/title_activity_test" >
         </activity>
+        <activity
+            android:name="com.customer.activity.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:parentActivityName="com.customer.activity.BeginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.customer.activity.BeginActivity" />
+        </activity>
+        <activity
+            android:name="com.customer.activity.DishDetailActivity"
+            android:label="@string/title_activity_dish_detail"
+            android:parentActivityName="com.customer.activity.MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.customer.activity.MenuActivity" />
+        </activity>
     </application>
 
 </manifest>
