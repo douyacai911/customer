@@ -43,13 +43,14 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/textView4"
         android:layout_below="@+id/textView4"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="食客评价" />
 
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView9"
         android:layout_marginTop="22dp" >
@@ -101,5 +102,32 @@
         android:layout_alignBottom="@+id/mPrice"
         android:layout_alignLeft="@+id/textView5"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/textView3"
+        android:text="加入订单" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignRight="@+id/listView1"
+        android:layout_marginRight="46dp"
+        android:text="　返回　" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView9"
+        android:layout_marginTop="11dp"
+        android:layout_toRightOf="@+id/textView3"
+        android:text="暂无评价" />
 
 </RelativeLayout>

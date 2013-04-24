@@ -15,26 +15,33 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
-    <Button
-        android:id="@+id/Button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="添加菜品"
-        android:visibility="gone" />
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
         <ListView
             android:id="@+id/ListView01"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="332dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:visibility="visible" >
-
         </ListView>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/Button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/ListView01"
+            android:layout_marginTop="15dp"
+            android:layout_weight="0.03"
+            android:text="查看订单"
+            android:visibility="visible" />
+
+    </RelativeLayout>
 
 </LinearLayout>

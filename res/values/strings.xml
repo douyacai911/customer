@@ -18,5 +18,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_dish_detail">DishDetailActivity</string>
+    <string name="title_activity_dish_quantity">DishQuantityActivity</string>
+    <string name="title_activity_order_list">OrderListActivity</string>
 
 </resources>

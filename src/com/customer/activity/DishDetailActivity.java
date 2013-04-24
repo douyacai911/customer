@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -33,9 +34,10 @@ public class DishDetailActivity extends Activity {
 	private int customerid = 0;
 	private int foodid = 0;
 	private int theCategory = 0;
-	private TextView dishname,category,price,description;
+	private TextView dishname,category,price,description,havenocomment;
 	private String theDishname,thePrice,theDescription;
 	private static final String[] m={"炒菜","凉菜","主食","酒水","其他"}; 
+	private Bundle theBundle;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,8 +47,6 @@ public class DishDetailActivity extends Activity {
 		foodid = bundle.getInt("foodid");
 		customerid = bundle.getInt("customerid");
 		setTitle(bundle.getString("dishname"));
-		// Show the Up button in the action bar.
-				setupActionBar();
 		
 
 		list = (ListView) findViewById(R.id.listView1);
@@ -54,7 +54,8 @@ public class DishDetailActivity extends Activity {
 		category = (TextView) findViewById(R.id.textView6);
 		price = (TextView) findViewById(R.id.textView7);
 		description = (TextView) findViewById(R.id.textView8);
-		
+
+		havenocomment = (TextView) findViewById(R.id.textView1);
 		
 		new Thread(progressThread).start();
 		
@@ -67,7 +68,7 @@ public class DishDetailActivity extends Activity {
 				description.setText(theDescription);
 				category.setText(m[theCategory]);
 				if (msg.what == -321) {
-					
+					havenocomment.setVisibility(View.GONE);
 					listItemAdapter = new RatingbarAdapter(DishDetailActivity.this,
 							(ArrayList<HashMap<String, Object>>) msg.obj,// 数据源
 							R.layout.comment_list_layout,// ListItem的XML实现
@@ -86,6 +87,35 @@ public class DishDetailActivity extends Activity {
 			}
 
 		};
+		
+		findViewById(R.id.button1).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent intent = new Intent().setClass(DishDetailActivity.this, DishQuantityActivity.class);
+						Bundle bundle = new Bundle();
+						
+						bundle.putInt("foodid", foodid);
+						bundle.putString("dishname", theDishname);
+						bundle.putDouble("price", Double.parseDouble(thePrice));
+						bundle.putInt("customerid", customerid);
+						intent.putExtras(bundle);
+		    			startActivity(intent);
+						//跳转到注册页面
+						
+					}
+				});
+		findViewById(R.id.button2).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent intent = new Intent(DishDetailActivity.this,MenuActivity.class);
+						startActivity(intent);
+						finish();
+						//返回到菜单列表
+						
+					}
+				});
 	}
 	Runnable progressThread = new Runnable() {
 		@Override

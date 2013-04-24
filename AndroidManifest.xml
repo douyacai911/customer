@@ -61,19 +61,28 @@
         </activity>
         <activity
             android:name="com.customer.activity.MenuActivity"
-            android:label="@string/title_activity_menu"
-            android:parentActivityName="com.customer.activity.BeginActivity" >
+            android:label="@string/title_activity_menu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.customer.activity.BeginActivity" />
         </activity>
         <activity
             android:name="com.customer.activity.DishDetailActivity"
-            android:label="@string/title_activity_dish_detail"
-            android:parentActivityName="com.customer.activity.MenuActivity" >
+            android:label="@string/title_activity_dish_detail">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.customer.activity.MenuActivity" />
+        </activity>
+        <activity
+            android:name="com.customer.activity.DishQuantityActivity"
+            android:label="@string/title_activity_dish_quantity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.customer.activity.DishDetailActivity" />
+        </activity>
+        <activity
+            android:name="com.customer.activity.OrderListActivity"
+            android:label="@string/title_activity_order_list" >
         </activity>
     </application>
 
