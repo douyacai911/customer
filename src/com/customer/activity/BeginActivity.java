@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import com.customer.activity.R;
 import com.customer.util.HttpUtil;
+
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -38,15 +39,18 @@ public class BeginActivity extends Activity {
 	private ListView list;
 	private double mylon = 0;
 	private double mylat = 0;
+	private TheApplication app;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_begin);
+		app = (TheApplication) getApplication();
 		list = (ListView) findViewById(R.id.ListView01);
 		textview = (TextView) findViewById(R.id.test1);
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
-		customerid = bundle.getInt("customerid");
+//		customerid = bundle.getInt("customerid");
+		customerid = app.getCustomerid();
 		String id = String.valueOf(customerid);
 		textview.setText(id);
 		
@@ -72,6 +76,10 @@ public class BeginActivity extends Activity {
 		
 		
 		new Thread(progressThread).start();
+		
+		
+
+	         
 		// 添加点击
 		list.setOnItemClickListener(new OnItemClickListener() {
 
@@ -83,13 +91,22 @@ public class BeginActivity extends Activity {
 				int thisrestid = (Integer) thisrest.get("restid");
 				boolean isdelivery = (Boolean) thisrest.get("delivery");
 				String restname = (String) thisrest.get("restname");
+				String restaddress = (String) thisrest.get("address");
+				String restlocation = (String) thisrest.get("location");
+				String resttel = (String) thisrest.get("tel");
+				app.setRestid(thisrestid);
+				app.setDelivery(isdelivery);
+				app.setRestname(restname);
+				app.setRestAddress(restaddress);
+				app.setRestLocation(restlocation);
+				app.setRestTel(resttel);
 				Intent intent = new Intent().setClass(BeginActivity.this, MenuActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putInt("restid", thisrestid);
-				bundle.putBoolean("delivery",isdelivery);
-				bundle.putString("restname", restname);
-				bundle.putInt("customerid", customerid);
-				intent.putExtras(bundle);
+//				Bundle bundle = new Bundle();
+//				bundle.putInt("restid", thisrestid);
+//				bundle.putBoolean("delivery",isdelivery);
+//				bundle.putString("restname", restname);
+//				bundle.putInt("customerid", customerid);
+//				intent.putExtras(bundle);
 				startActivity(intent);
 			}
 		});
@@ -113,6 +130,7 @@ public class BeginActivity extends Activity {
 
 				// 添加并且显示
 				list.setAdapter(listItemAdapter);
+				  
 				}
 
 				super.handleMessage(msg);
@@ -133,6 +151,7 @@ public class BeginActivity extends Activity {
 				msg.obj = flag;
 			}
 			mainHandler.sendMessage(msg);
+			
 		}
 	};
 
@@ -164,11 +183,18 @@ public class BeginActivity extends Activity {
 				String restname = rest.getString("restname");
 				int restid = rest.getInt("restid");
 				boolean delivery = rest.getBoolean("delivery");
+				String address = rest.getString("address");
+				String location = rest.getString("location");
+				String tel = rest.getString("tel");
 				map.put("distance", "相距 "+String.valueOf(distance)+" 米");
 				map.put("restname", restname);
 				map.put("delivery", delivery);
 				map.put("restid", restid);
+				map.put("address", address);
+				map.put("location", location);
+				map.put("tel", tel);
 				map.put("index", i);
+				
 				
 				listItem.add(map);
 			}

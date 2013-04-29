@@ -1,5 +1,8 @@
 package com.customer.activity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +20,7 @@ import android.support.v4.app.NavUtils;
 public class DishQuantityActivity extends Activity {
 	private int foodid = 0;
 	private int quantity = 0;
-	private int customerid = 0;
+	private int restid = 0;
 	private String dishname;
 	private double price,subtotal;
 	private TextView tdishname,tprice,tsubtotal;
@@ -25,22 +28,22 @@ public class DishQuantityActivity extends Activity {
 	private int MaxQuantity = 30; 
     private String[] array = new String[MaxQuantity];
     private ArrayAdapter<String> adapter; 
-    private Bundle theBundle;
+    private TheApplication app;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dish_quantity);
 
+		app = (TheApplication) getApplication();
+		
 		setTitle("请确认份数");
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
-		if(bundle!=null){
-			theBundle = bundle;
-		}
 		foodid = bundle.getInt("foodid");
 		dishname = bundle.getString("dishname");
 		price = bundle.getDouble("price");
-		customerid = bundle.getInt("customerid");
+		restid = bundle.getInt("restid");
 		
 		tdishname = (TextView) findViewById(R.id.textView1);
 		tprice = (TextView) findViewById(R.id.textView5);
@@ -82,6 +85,24 @@ public class DishQuantityActivity extends Activity {
 					@Override
 					public void onClick(View view) {
 						Toast.makeText(DishQuantityActivity.this,String.valueOf(subtotal), Toast.LENGTH_SHORT).show();
+						
+						JSONObject json = new JSONObject();
+						try {
+							json.put("foodid", foodid);
+							json.put("dishname", dishname);
+							json.put("quantity", quantity);
+							json.put("subtotal", subtotal);
+							json.put("restid", restid);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						app.addToOrderJsonArray(json);
+						Intent intent = new Intent(DishQuantityActivity.this,MenuActivity.class);
+						startActivity(intent);
+
+						DishDetailActivity.instance.finish();
+						finish();
 //						Intent intent = new Intent(DishQuantityActivity.this,DishQuantityActivity.class);
 //						startActivity(intent);
 //						Bundle bundle = new Bundle();
@@ -98,8 +119,6 @@ public class DishQuantityActivity extends Activity {
 					@Override
 					public void onClick(View view) {
 						
-						Intent intent = new Intent(DishQuantityActivity.this,DishDetailActivity.class);
-						startActivity(intent);
 						finish();
 //						Bundle bundle = new Bundle();
 //						bundle.putInt("foodid", foodid);

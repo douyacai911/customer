@@ -19,6 +19,7 @@
     <uses-permission android:name="com.customer.activity.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!-- My Location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -29,6 +30,7 @@
         android:required="true" />
 
     <application
+        android:name="com.customer.activity.TheApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -61,21 +63,21 @@
         </activity>
         <activity
             android:name="com.customer.activity.MenuActivity"
-            android:label="@string/title_activity_menu">
+            android:label="@string/title_activity_menu" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.customer.activity.BeginActivity" />
         </activity>
         <activity
             android:name="com.customer.activity.DishDetailActivity"
-            android:label="@string/title_activity_dish_detail">
+            android:label="@string/title_activity_dish_detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.customer.activity.MenuActivity" />
         </activity>
         <activity
             android:name="com.customer.activity.DishQuantityActivity"
-            android:label="@string/title_activity_dish_quantity">
+            android:label="@string/title_activity_dish_quantity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.customer.activity.DishDetailActivity" />
@@ -83,6 +85,19 @@
         <activity
             android:name="com.customer.activity.OrderListActivity"
             android:label="@string/title_activity_order_list" >
+        </activity>
+        <activity
+            android:name="com.customer.activity.GoToRestActivity"
+            android:label="@string/title_activity_go_to_rest" >
+        </activity>
+        <activity
+            android:name="com.customer.activity.OrderTakeOutActivity"
+            android:label="@string/title_activity_order_take_out" >
+        </activity>
+        <activity
+            android:name="com.customer.activity.EatTimeActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:label="@string/title_activity_eat_time" >
         </activity>
     </application>
 

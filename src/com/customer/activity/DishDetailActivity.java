@@ -34,14 +34,19 @@ public class DishDetailActivity extends Activity {
 	private int customerid = 0;
 	private int foodid = 0;
 	private int theCategory = 0;
+	private int restid = 0;
 	private TextView dishname,category,price,description,havenocomment;
 	private String theDishname,thePrice,theDescription;
 	private static final String[] m={"炒菜","凉菜","主食","酒水","其他"}; 
 	private Bundle theBundle;
+
+    public static DishDetailActivity instance = null;  
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dish_detail);
+
+        instance = this;
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		foodid = bundle.getInt("foodid");
@@ -99,6 +104,7 @@ public class DishDetailActivity extends Activity {
 						bundle.putString("dishname", theDishname);
 						bundle.putDouble("price", Double.parseDouble(thePrice));
 						bundle.putInt("customerid", customerid);
+						bundle.putInt("restid", restid);
 						intent.putExtras(bundle);
 		    			startActivity(intent);
 						//跳转到注册页面
@@ -109,8 +115,6 @@ public class DishDetailActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						Intent intent = new Intent(DishDetailActivity.this,MenuActivity.class);
-						startActivity(intent);
 						finish();
 						//返回到菜单列表
 						

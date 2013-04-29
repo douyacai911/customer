@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,19 +34,22 @@ public class MenuActivity extends Activity {
 	private int customerid = 0;
 	private boolean delivery = false;
 	private String restname;
-
+	private TheApplication app;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
-
+		app = (TheApplication) getApplication();
+		JSONArray jsonarray = app.getOrderJsonArray();
+		if(jsonarray.length()==0){
+			findViewById(R.id.Button1).setVisibility(View.GONE);
+		}
 		list = (ListView) findViewById(R.id.ListView01);
 		textview = (TextView) findViewById(R.id.test1);
-		Intent intent = this.getIntent();
-		Bundle bundle = intent.getExtras();
-		restid = bundle.getInt("restid");
-		restname = bundle.getString("restname");
-		delivery = bundle.getBoolean("delivery");
+		restid = app.getRestid();
+		restname = app.getRestname();
+		delivery = app.getDelivery();
+		customerid = app.getCustomerid();
 
 		setTitle(restname);
 		if (delivery) {
@@ -55,6 +59,10 @@ public class MenuActivity extends Activity {
 		}
 
 		new Thread(progressThread).start();
+		
+
+	         
+		
 
 		// 添加点击
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -71,11 +79,12 @@ public class MenuActivity extends Activity {
 				bundle.putInt("foodid", thisfoodid);
 				bundle.putString("dishname", dishname);
 				bundle.putInt("customerid", customerid);
+				bundle.putInt("restid", restid);
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}
 		});
-
+	
 		this.mainHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -96,12 +105,25 @@ public class MenuActivity extends Activity {
 
 					// 添加并且显示
 					list.setAdapter(listItemAdapter);
+					
 				}
 
 				super.handleMessage(msg);
 			}
 
 		};
+		
+		findViewById(R.id.Button1).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent intent = new Intent(MenuActivity.this,OrderListActivity.class);
+						startActivity(intent);
+						finish();
+						//跳转到订单页面
+						
+					}
+				});
 	}
 
 	Runnable progressThread = new Runnable() {

@@ -20,5 +20,9 @@
     <string name="title_activity_dish_detail">DishDetailActivity</string>
     <string name="title_activity_dish_quantity">DishQuantityActivity</string>
     <string name="title_activity_order_list">OrderListActivity</string>
+    <string name="title_activity_go_to_rest">GoToRestActivity</string>
+    <string name="title_activity_order_take_out">OrderTakeOutActivity</string>
+    <string name="title_activity_eat_time">EatTimeActivity</string>
+    <string name="addeattime">点此添加就餐时间</string>
 
 </resources>

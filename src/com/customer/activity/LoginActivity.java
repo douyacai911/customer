@@ -23,6 +23,8 @@ public class LoginActivity extends Activity{
 	public static LoginActivity instance = null;
 	private EditText userText,pwdText;
 	private Handler mainHandler;
+	private TheApplication app;
+	private String theusername;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,9 +94,12 @@ public class LoginActivity extends Activity{
 				default:
 					Toast.makeText(LoginActivity.this, "登陆成功",Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent().setClass(LoginActivity.this, BeginActivity.class);
-					Bundle bundle = new Bundle();
-					bundle.putInt("customerid", msg.what);
-					intent.putExtras(bundle);
+					app = (TheApplication) getApplication(); 
+			        app.setCustomerid(msg.what);
+			        app.setUsername(theusername);
+//					Bundle bundle = new Bundle();
+//					bundle.putInt("customerid", msg.what);
+//					intent.putExtras(bundle);
 	    			startActivity(intent);
 	    			finish();
 					break;
@@ -117,14 +122,18 @@ public class LoginActivity extends Activity{
 		String password = pwdText.getText().toString();
 		// 获得登录结果
 		String result=query(username,password);
-		String[] msgs = result.split(";");
-		String[] flag = msgs[0].split("=");
-		
-		
-		if (flag[0] != null && flag[0].equals("customerid")) {
-			int customerid = Integer.parseInt(flag[1]);
-			return customerid;
-		} else if (result != null && result.equals("0")) {
+		if((!result.equals("0")) && (!result.equals("1"))){
+			try {
+				JSONObject json = new JSONObject(result);
+				theusername = json.getString("username");
+				return json.getInt("customerid");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return -3;
+			}
+		}
+		else if (result != null && result.equals("0")) {
 			return -1;
 		} else if (result != null && result.equals("1")) {
 			return -2;
@@ -166,6 +175,7 @@ public class LoginActivity extends Activity{
 				new Thread();
 				 
 					msg.what=login();
+					
 			
 				mainHandler.sendMessage(msg);
 			}
