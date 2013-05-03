@@ -72,7 +72,7 @@ public class EatTimeActivity extends Activity {
 							DecimalFormat df = new DecimalFormat("00");
 							minuteString = df.format(mMinute);
 						} else {
-							minuteString = String.valueOf(mHour);
+							minuteString = String.valueOf(mMinute);
 						}
 						date = datepicker.getYear() + "-" + monthString + "-"
 								+ dayString;

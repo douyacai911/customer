@@ -23,6 +23,7 @@
     <string name="title_activity_go_to_rest">GoToRestActivity</string>
     <string name="title_activity_order_take_out">OrderTakeOutActivity</string>
     <string name="title_activity_eat_time">EatTimeActivity</string>
-    <string name="addeattime">点此添加就餐时间</string>
+    <string name="addeattime">请点此添加就餐时间</string>
+    <string name="addeattime2">请点此添加送餐时间</string>
 
 </resources>

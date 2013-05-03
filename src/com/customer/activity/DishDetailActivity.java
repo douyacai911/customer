@@ -39,6 +39,7 @@ public class DishDetailActivity extends Activity {
 	private String theDishname,thePrice,theDescription;
 	private static final String[] m={"炒菜","凉菜","主食","酒水","其他"}; 
 	private Bundle theBundle;
+	private TheApplication app;
 
     public static DishDetailActivity instance = null;  
 	@Override
@@ -97,6 +98,7 @@ public class DishDetailActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+						
 						Intent intent = new Intent().setClass(DishDetailActivity.this, DishQuantityActivity.class);
 						Bundle bundle = new Bundle();
 						
@@ -104,10 +106,9 @@ public class DishDetailActivity extends Activity {
 						bundle.putString("dishname", theDishname);
 						bundle.putDouble("price", Double.parseDouble(thePrice));
 						bundle.putInt("customerid", customerid);
-						bundle.putInt("restid", restid);
 						intent.putExtras(bundle);
 		    			startActivity(intent);
-						//跳转到注册页面
+						//跳转到数量选择
 						
 					}
 				});

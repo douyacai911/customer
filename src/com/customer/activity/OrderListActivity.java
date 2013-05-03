@@ -34,14 +34,14 @@ public class OrderListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_list);
 		app = (TheApplication) getApplication();
-
+		
 		jsonarray = new JSONArray();
 		list = (ListView) findViewById(R.id.listView1);
 		ttotal = (TextView) findViewById(R.id.textView1);
 		radiogroup = (RadioGroup) findViewById(R.id.radiogroup1);
 		radio1 = (RadioButton) findViewById(R.id.radioButton1);
 		radio2 = (RadioButton) findViewById(R.id.radioButton2);
-
+		
 		if (app.getDelivery()) {
 
 			radiogroup.setVisibility(0);
@@ -82,6 +82,7 @@ public class OrderListActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			app.setTotal(total);
 		}
 		
 		listItemAdapter = new SimpleAdapter(OrderListActivity.this,

@@ -36,8 +36,8 @@ import android.widget.Toast;
 
 public class GoToRestActivity extends Activity {
 	private DatePicker datepicker;
-	private TextView time;
-	private String eattime, numofpeo, eattimestring;
+	private TextView time,trestaddress;
+	private String eattime, numofpeo, eattimestring,restaddress;
 	private EditText num, eremark;
 	private ProgressBar progressbar;
 	private TheApplication app;
@@ -52,6 +52,8 @@ public class GoToRestActivity extends Activity {
 		time = (TextView) findViewById(R.id.textView5);
 		time.setTextColor(Color.RED);
 		eremark = (EditText) findViewById(R.id.editText2);
+		trestaddress = (TextView) findViewById(R.id.textView2);
+		trestaddress.setText(app.getRestAddress());
 
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
@@ -67,6 +69,7 @@ public class GoToRestActivity extends Activity {
 				Intent intent = new Intent(GoToRestActivity.this,
 						EatTimeActivity.class);
 				startActivity(intent);
+				finish();
 
 			}
 		});

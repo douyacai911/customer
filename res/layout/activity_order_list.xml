@@ -57,7 +57,8 @@
     android:layout_height="wrap_content"
     android:layout_alignRight="@+id/textView3"
     android:layout_centerVertical="true"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:visibility="gone" >
 
     <RadioButton
         android:id="@+id/radioButton1"

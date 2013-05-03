@@ -226,6 +226,7 @@ containing a value of this type.
     public static final class string {
         public static final int action_settings=0x7f050012;
         public static final int addeattime=0x7f050027;
+        public static final int addeattime2=0x7f050028;
         public static final int app_name=0x7f050011;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
          */
