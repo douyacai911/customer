@@ -85,29 +85,7 @@ public class DishQuantityActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						JSONArray jsonarray = app.getOrderJsonArray();
-						int pastid = 0;
-						if (!jsonarray.isNull(0)) {
-							try {
-								pastid = jsonarray.getJSONObject(0).getInt(
-										"restid");
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							if (pastid != restid) {
-								Toast.makeText(DishQuantityActivity.this,
-										"在别家餐厅订餐前，请先进入订单页面点击清空订单",
-										Toast.LENGTH_SHORT).show();
-								
-
-							}
-							else {
-								Toast.makeText(DishQuantityActivity.this,
-										String.valueOf(subtotal),
-										Toast.LENGTH_SHORT).show();
-
-								JSONObject json = new JSONObject();
+							JSONObject json = new JSONObject();
 								try {
 									json.put("foodid", foodid);
 									json.put("dishname", dishname);
@@ -119,51 +97,18 @@ public class DishQuantityActivity extends Activity {
 									e.printStackTrace();
 								}
 								app.addToOrderJsonArray(json);
+								MenuActivity.instance.finish();
 								Intent intent = new Intent(
 										DishQuantityActivity.this,
 										MenuActivity.class);
 								startActivity(intent);
-
+								
 								DishDetailActivity.instance.finish();
 								finish();
 							}
-						} 
-						else {
-							Toast.makeText(DishQuantityActivity.this,
-									String.valueOf(subtotal),
-									Toast.LENGTH_SHORT).show();
-
-							JSONObject json = new JSONObject();
-							try {
-								json.put("foodid", foodid);
-								json.put("dishname", dishname);
-								json.put("quantity", quantity);
-								json.put("subtotal", subtotal);
-								json.put("restid", restid);
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							app.addToOrderJsonArray(json);
-							Intent intent = new Intent(
-									DishQuantityActivity.this,
-									MenuActivity.class);
-							startActivity(intent);
-
-							DishDetailActivity.instance.finish();
-							finish();
-						}
-						// Intent intent = new
-						// Intent(DishQuantityActivity.this,DishQuantityActivity.class);
-						// startActivity(intent);
-						// Bundle bundle = new Bundle();
-						// bundle.putInt("foodid", foodid);
-						// bundle.putString("dishname", dishname);
-						// bundle.putInt("customerid", customerid);
-						// startActivity(intent);
-						// 跳转到注册页面
-
-					}
+				 
+	
+					
 				});
 		findViewById(R.id.button2).setOnClickListener(
 				new View.OnClickListener() {

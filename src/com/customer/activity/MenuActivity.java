@@ -35,10 +35,13 @@ public class MenuActivity extends Activity {
 	private boolean delivery = false;
 	private String restname;
 	private TheApplication app;
+
+	public static MenuActivity instance = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
+		instance = this;
 		app = (TheApplication) getApplication();
 		JSONArray jsonarray = app.getOrderJsonArray();
 		if(jsonarray.length()==0){

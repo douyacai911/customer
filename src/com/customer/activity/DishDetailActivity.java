@@ -35,25 +35,27 @@ public class DishDetailActivity extends Activity {
 	private int foodid = 0;
 	private int theCategory = 0;
 	private int restid = 0;
-	private TextView dishname,category,price,description,havenocomment;
-	private String theDishname,thePrice,theDescription;
-	private static final String[] m={"炒菜","凉菜","主食","酒水","其他"}; 
+	private TextView dishname, category, price, description, havenocomment;
+	private String theDishname, thePrice, theDescription;
+	private static final String[] m = { "炒菜", "凉菜", "主食", "酒水", "其他" };
 	private Bundle theBundle;
 	private TheApplication app;
 
-    public static DishDetailActivity instance = null;  
+	public static DishDetailActivity instance = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dish_detail);
 
-        instance = this;
+		app = (TheApplication) getApplication();
+		instance = this;
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		foodid = bundle.getInt("foodid");
 		customerid = bundle.getInt("customerid");
 		setTitle(bundle.getString("dishname"));
-		
+		restid = app.getRestid();
 
 		list = (ListView) findViewById(R.id.listView1);
 		dishname = (TextView) findViewById(R.id.textView5);
@@ -62,9 +64,9 @@ public class DishDetailActivity extends Activity {
 		description = (TextView) findViewById(R.id.textView8);
 
 		havenocomment = (TextView) findViewById(R.id.textView1);
-		
+
 		new Thread(progressThread).start();
-		
+
 		this.mainHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -75,13 +77,16 @@ public class DishDetailActivity extends Activity {
 				category.setText(m[theCategory]);
 				if (msg.what == -321) {
 					havenocomment.setVisibility(View.GONE);
-					listItemAdapter = new RatingbarAdapter(DishDetailActivity.this,
+					listItemAdapter = new RatingbarAdapter(
+							DishDetailActivity.this,
 							(ArrayList<HashMap<String, Object>>) msg.obj,// 数据源
 							R.layout.comment_list_layout,// ListItem的XML实现
 							// 动态数组与ImageItem对应的子项
-							new String[] { "customername", "time" ,"detail","stars"},
+							new String[] { "customername", "time", "detail",
+									"stars" },
 							// ImageItem的XML文件里面的一个ImageView,两个TextView ID
-							new int[] { R.id.textView1, R.id.time, R.id.textView4,R.id.rating}
+							new int[] { R.id.textView1, R.id.time,
+									R.id.textView4, R.id.rating }
 
 					);
 
@@ -93,23 +98,56 @@ public class DishDetailActivity extends Activity {
 			}
 
 		};
-		
+
 		findViewById(R.id.button1).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						
-						Intent intent = new Intent().setClass(DishDetailActivity.this, DishQuantityActivity.class);
-						Bundle bundle = new Bundle();
-						
-						bundle.putInt("foodid", foodid);
-						bundle.putString("dishname", theDishname);
-						bundle.putDouble("price", Double.parseDouble(thePrice));
-						bundle.putInt("customerid", customerid);
-						intent.putExtras(bundle);
-		    			startActivity(intent);
-						//跳转到数量选择
-						
+						JSONArray jsonarray = app.getOrderJsonArray();
+						int pastid = 0;
+						if (!jsonarray.isNull(0)) {
+							try {
+								pastid = jsonarray.getJSONObject(0).getInt(
+										"restid");
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							if (pastid != restid) {
+								Toast.makeText(DishDetailActivity.this,
+										"在别家餐厅订餐前，请先进入订单页面点击清空订单",
+										Toast.LENGTH_SHORT).show();
+
+							}else{
+								Intent intent = new Intent().setClass(
+										DishDetailActivity.this,
+										DishQuantityActivity.class);
+								Bundle bundle = new Bundle();
+
+								bundle.putInt("foodid", foodid);
+								bundle.putString("dishname", theDishname);
+								bundle.putDouble("price",
+										Double.parseDouble(thePrice));
+								bundle.putInt("customerid", customerid);
+								intent.putExtras(bundle);
+								startActivity(intent);
+							}
+						} else {
+
+							Intent intent = new Intent().setClass(
+									DishDetailActivity.this,
+									DishQuantityActivity.class);
+							Bundle bundle = new Bundle();
+
+							bundle.putInt("foodid", foodid);
+							bundle.putString("dishname", theDishname);
+							bundle.putDouble("price",
+									Double.parseDouble(thePrice));
+							bundle.putInt("customerid", customerid);
+							intent.putExtras(bundle);
+							startActivity(intent);
+							// 跳转到数量选择
+						}
 					}
 				});
 		findViewById(R.id.button2).setOnClickListener(
@@ -117,11 +155,12 @@ public class DishDetailActivity extends Activity {
 					@Override
 					public void onClick(View view) {
 						finish();
-						//返回到菜单列表
-						
+						// 返回到菜单列表
+
 					}
 				});
 	}
+
 	Runnable progressThread = new Runnable() {
 		@Override
 		public void run() {
@@ -136,14 +175,15 @@ public class DishDetailActivity extends Activity {
 				thePrice = String.valueOf(json.getDouble("price"));
 				theDescription = json.getString("description");
 				msg.what = -123;
-				if(json.getBoolean("havecomment")){
+				if (json.getBoolean("havecomment")) {
 					msg.what = -321;
 					ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
 					JSONArray jsonArray = json.getJSONArray("comment");
 					for (int i = 0; i < jsonArray.length(); i++) {
 						HashMap<String, Object> map = new HashMap<String, Object>();
 						// map.put("ItemTitle", "Level "+i);
-						// map.put("ItemText", "Finished in 1 Min 54 Secs, 70 Moves! ");
+						// map.put("ItemText",
+						// "Finished in 1 Min 54 Secs, 70 Moves! ");
 						// listItem.add(map);
 						JSONObject comment = (JSONObject) jsonArray.get(i);
 						String customername = comment.getString("customername");
@@ -160,20 +200,19 @@ public class DishDetailActivity extends Activity {
 					}
 					flag = listItem;
 				}
-				
-				
+
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (msg.what==-321) {
-				
+			if (msg.what == -321) {
+
 				msg.obj = flag;
 			}
 			mainHandler.sendMessage(msg);
 		}
 	};
-	
+
 	private String getResult(int id) {
 		// 查询参数
 
@@ -182,17 +221,10 @@ public class DishDetailActivity extends Activity {
 		String url = HttpUtil.BASE_URL + "GetDishServlet?" + registerString;
 		// 查询返回结果
 		String result = HttpUtil.queryStringForPost(url);
-		
+
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
