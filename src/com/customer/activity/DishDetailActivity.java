@@ -1,22 +1,18 @@
 package com.customer.activity;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.customer.util.HttpUtil;
-import com.customer.util.RatingbarAdapter;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
-import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,8 +20,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
-import android.text.method.DateTimeKeyListener;
+
+import com.customer.util.HttpUtil;
+import com.customer.util.RatingbarAdapter;
 
 public class DishDetailActivity extends Activity {
 	private Handler mainHandler;
@@ -38,7 +35,6 @@ public class DishDetailActivity extends Activity {
 	private TextView dishname, category, price, description, havenocomment;
 	private String theDishname, thePrice, theDescription;
 	private static final String[] m = { "炒菜", "凉菜", "主食", "酒水", "其他" };
-	private Bundle theBundle;
 	private TheApplication app;
 
 	public static DishDetailActivity instance = null;
@@ -181,10 +177,6 @@ public class DishDetailActivity extends Activity {
 					JSONArray jsonArray = json.getJSONArray("comment");
 					for (int i = 0; i < jsonArray.length(); i++) {
 						HashMap<String, Object> map = new HashMap<String, Object>();
-						// map.put("ItemTitle", "Level "+i);
-						// map.put("ItemText",
-						// "Finished in 1 Min 54 Secs, 70 Moves! ");
-						// listItem.add(map);
 						JSONObject comment = (JSONObject) jsonArray.get(i);
 						String customername = comment.getString("customername");
 						String time = comment.getString("time");

@@ -71,6 +71,7 @@ public class MyOrderDetailActivity extends Activity {
 					Intent intent = new Intent().setClass(MyOrderDetailActivity.this,AddReviewActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putInt("foodid", thisfoodid);
+					bundle.putString("dishname", dishname);
 					intent.putExtras(bundle);
 					startActivity(intent);
 				}
