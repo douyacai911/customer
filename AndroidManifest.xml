@@ -96,8 +96,20 @@
         </activity>
         <activity
             android:name="com.customer.activity.EatTimeActivity"
-            android:theme="@android:style/Theme.Dialog"
-            android:label="@string/title_activity_eat_time" >
+            android:label="@string/title_activity_eat_time"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.customer.activity.MyOrderActivity"
+            android:label="@string/title_activity_my_order" >
+        </activity>
+        <activity
+            android:name="com.customer.activity.MyOrderDetailActivity"
+            android:label="@string/title_activity_my_order_detail" >
+        </activity>
+        <activity
+            android:name="com.customer.activity.AddReviewActivity"
+            android:label="@string/title_activity_add_review" >
         </activity>
     </application>
 

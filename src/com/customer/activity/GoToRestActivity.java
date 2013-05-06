@@ -66,8 +66,13 @@ public class GoToRestActivity extends Activity {
 		time.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(GoToRestActivity.this,
+				
+				
+				Intent intent = new Intent().setClass(GoToRestActivity.this,
 						EatTimeActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putBoolean("delivery", false);
+				intent.putExtras(bundle);
 				startActivity(intent);
 				finish();
 
@@ -221,7 +226,7 @@ public class GoToRestActivity extends Activity {
 //					bundle.putInt("customerid", msg.what);
 //					intent.putExtras(bundle);
 //					startActivity(intent);
-//					finish();
+					finish();
 
 					break;
 				}
@@ -250,7 +255,7 @@ public class GoToRestActivity extends Activity {
 	private String createOrder(){
 		int customerid = app.getCustomerid();
 		int restid = app.getRestid();
-		boolean delivery = app.getDelivery();
+//		boolean delivery = app.getDelivery();
 		SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");       
 		String maketime = sDateFormat.format(new java.util.Date());  
 		double total = app.getTotal();
@@ -263,7 +268,7 @@ public class GoToRestActivity extends Activity {
 			json.put("total", total);
 			json.put("customerid", customerid);
 			json.put("restid", restid);
-			json.put("delivery", delivery);
+			json.put("delivery", false);
 			json.put("maketime", maketime);
 			json.put("eattime", eattimestring);
 			json.put("numofpeo", numofpeo);

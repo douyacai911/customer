@@ -77,7 +77,14 @@ public class BeginActivity extends Activity {
 		
 		new Thread(progressThread).start();
 		
-		
+		findViewById(R.id.button2).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent intent = new Intent().setClass(BeginActivity.this, MyOrderActivity.class);
+						startActivity(intent);
+					}
+				});
 
 	         
 		// Ìí¼Óµã»÷

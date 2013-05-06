@@ -13,7 +13,7 @@ import android.widget.TimePicker;
 public class EatTimeActivity extends Activity {
 	private DatePicker datepicker;
 	private TimePicker timepicker;
-
+	private boolean flag = false;
 	private String date;
 	private String time;
 	private int mHour, mMinute;
@@ -23,6 +23,10 @@ public class EatTimeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_eat_time);
 		setTitle("请确认日期和时间");
+		
+		Intent intent = this.getIntent();
+		Bundle bundle = intent.getExtras();
+		flag = bundle.getBoolean("delivery");
 		datepicker = (DatePicker) findViewById(R.id.datePicker1);
 		datepicker.setCalendarViewShown(false);
 
@@ -78,8 +82,13 @@ public class EatTimeActivity extends Activity {
 								+ dayString;
 						time = hourString + ":" + minuteString + ":00";
 						String datetime = date + " " + time;
-						Intent intent = new Intent().setClass(
-								EatTimeActivity.this, GoToRestActivity.class);
+						Intent intent;
+						if(!flag){
+							intent = new Intent().setClass(EatTimeActivity.this, GoToRestActivity.class);
+						}else{
+							intent = new Intent().setClass(EatTimeActivity.this, OrderTakeOutActivity.class);
+						}
+								
 						Bundle bundle = new Bundle();
 						bundle.putString("datetime", datetime);
 						intent.putExtras(bundle);
