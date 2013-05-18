@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.DatePicker;
@@ -97,15 +98,6 @@ public class EatTimeActivity extends Activity {
 
 					}
 				});
-		findViewById(R.id.button2).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-
-						finish();
-
-					}
-				});
 	}
 
 	@Override
@@ -114,5 +106,23 @@ public class EatTimeActivity extends Activity {
 		getMenuInflater().inflate(R.menu.eat_time, menu);
 		return true;
 	}
+	@Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        
+        if(keyCode==KeyEvent.KEYCODE_BACK){
 
+			Intent intent;
+        	if(!flag){
+				intent = new Intent().setClass(EatTimeActivity.this, GoToRestActivity.class);
+			}else{
+				intent = new Intent().setClass(EatTimeActivity.this, OrderTakeOutActivity.class);
+			}
+			startActivity(intent);
+			finish();
+            return true;
+        }
+        //继续执行父类的其他点击事件
+        return super.onKeyDown(keyCode, event);
+    }
 }

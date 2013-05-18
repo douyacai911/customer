@@ -4,6 +4,7 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/editinfo"/>
+        android:title="@string/editinfo"
+        android:text="@string/editinfo"/>
 
 </menu>

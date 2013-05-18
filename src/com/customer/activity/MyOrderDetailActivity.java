@@ -55,7 +55,7 @@ public class MyOrderDetailActivity extends Activity {
 		tremark = (TextView) findViewById(R.id.textView7);
 		tremark2 = (TextView) findViewById(R.id.textView14);
 		ttel = (TextView)findViewById(R.id.textView13);
-		setTitle("订单详情");
+		setTitle(" ");
 		
 		new Thread(progressThread).start();
 		
@@ -98,7 +98,7 @@ public class MyOrderDetailActivity extends Activity {
 					String total = json.getString("total");
 					String restname = json.getString("restname");
 					String resttel = json.getString("resttel");
-					setTitle("发往："+restname+"的订单");
+					setTitle("发往："+restname+" 的订单");
 					findViewById(R.id.textView12).setVisibility(0);
 					ttel.setText(resttel);
 					ttel.setVisibility(0);

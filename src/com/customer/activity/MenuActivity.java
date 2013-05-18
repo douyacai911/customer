@@ -122,7 +122,7 @@ public class MenuActivity extends Activity {
 					public void onClick(View view) {
 						Intent intent = new Intent(MenuActivity.this,OrderListActivity.class);
 						startActivity(intent);
-						finish();
+//						finish();
 						//跳转到订单页面
 						
 					}

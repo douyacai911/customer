@@ -43,7 +43,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView5"
         android:layout_marginTop="10dp"
-        android:text="电　　话：" />
+        android:text="店家电话：" />
 
     <TextView
         android:id="@+id/textView7"

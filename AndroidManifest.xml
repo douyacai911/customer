@@ -111,6 +111,10 @@
             android:name="com.customer.activity.AddReviewActivity"
             android:label="@string/title_activity_add_review" >
         </activity>
+        <activity
+            android:name="com.customer.activity.EditInfoActivity"
+            android:label="@string/title_activity_edit_info" >
+        </activity>
     </application>
 
 </manifest>

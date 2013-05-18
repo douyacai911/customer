@@ -28,5 +28,7 @@
     <string name="title_activity_my_order">MyOrderActivity</string>
     <string name="title_activity_my_order_detail">MyOrderDetailActivity</string>
     <string name="title_activity_add_review">AddReviewActivity</string>
+    <string name="title_activity_edit_info">EditInfoActivity</string>
+    <string name="editinfo">修改个人信息</string>
 
 </resources>

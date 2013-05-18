@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.customer.activity.R;
+import com.customer.util.CreateSMS;
 import com.customer.util.HttpUtil;
 
 import android.location.Criteria;
@@ -19,21 +20,28 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class BeginActivity extends Activity {
+
+	public static BeginActivity instance = null;
 	private int customerid = 0;
-	private TextView textview;   //TODO test
 	private Handler mainHandler;
 	private SimpleAdapter listItemAdapter;
 	private ListView list;
@@ -45,14 +53,11 @@ public class BeginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_begin);
 		app = (TheApplication) getApplication();
+
+		instance = this; //指定关闭用
+		
 		list = (ListView) findViewById(R.id.ListView01);
-		textview = (TextView) findViewById(R.id.test1);
-		Intent intent = this.getIntent();
-		Bundle bundle = intent.getExtras();
-//		customerid = bundle.getInt("customerid");
 		customerid = app.getCustomerid();
-		String id = String.valueOf(customerid);
-		textview.setText(id);
 		
 		LocationManager loctionManager;
 		String contextService=Context.LOCATION_SERVICE;
@@ -221,5 +226,59 @@ public class BeginActivity extends Activity {
 		getMenuInflater().inflate(R.menu.begin, menu);
 		return true;
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch(item.getItemId())//得到被点击的item的itemId
+        {
+        case R.id.action_settings://这里的Id就是布局文件中定义的Id，在用R.id.XXX的方法获取出来
+        	Intent intent = new Intent().setClass(BeginActivity.this, EditInfoActivity.class);
+			startActivity(intent);
+            break;
+       
+        }
+        return true;
+    }
+	@Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+        	final AlertDialog.Builder builder = new Builder(
+					BeginActivity.this);
+			builder.setTitle("确认退出")
+					.setMessage("确定要退出程序吗？")
+					.setPositiveButton(
+							"确定",
+							new DialogInterface.OnClickListener() {
+								public void onClick(
+										DialogInterface dialoginterface,
+										int i) {
+									// 按钮事件
+									  Intent exit = new Intent(Intent.ACTION_MAIN);
+					                    exit.addCategory(Intent.CATEGORY_HOME);
+					                    exit.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					                    startActivity(exit);
+					                    System.exit(0);
 
+								}
+							})
+					.setNegativeButton(
+							"取消",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(
+										DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							}).show(); //弹出确定退出对话框
+          
+            //不需要执行父类的点击事件，直接return
+            return true;
+        }
+        //继续执行父类的其他点击事件
+        return super.onKeyDown(keyCode, event);
+    }
 }

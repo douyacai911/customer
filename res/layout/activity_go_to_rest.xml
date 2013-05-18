@@ -52,7 +52,7 @@
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="14dp"
-        android:text="点此查看地图" />
+        android:text="点此可查看地图" />
 
     <TextView
         android:id="@+id/textView3"

@@ -33,6 +33,7 @@ public class OrderListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_list);
+		setTitle("∂©µ•œÍ«È");
 		app = (TheApplication) getApplication();
 		
 		jsonarray = new JSONArray();

@@ -13,7 +13,7 @@
         android:id="@+id/test1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="餐厅列表" />
 
     <Button
         android:id="@+id/Button1"
@@ -30,8 +30,7 @@
         <ListView
             android:id="@+id/ListView01"
             android:layout_width="match_parent"
-            android:layout_height="336dp"
-            android:layout_weight="1.12"
+            android:layout_height="399dp"
             android:visibility="visible" >
 
         </ListView>

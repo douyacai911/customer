@@ -189,13 +189,10 @@ public class OrderTakeOutActivity extends Activity {
 				default:
 					Toast.makeText(OrderTakeOutActivity.this, "下单成功",
 							Toast.LENGTH_SHORT).show();
-//					LoginActivity.instance.finish(); // 关闭LoginActivity
-//					Intent intent = new Intent().setClass(
-//							RegisterActivity.this, BeginActivity.class);
-//					Bundle bundle = new Bundle();
-//					bundle.putInt("customerid", msg.what);
-//					intent.putExtras(bundle);
-//					startActivity(intent);
+					app.setJsonArrayNull();
+					MenuActivity.instance.finish();
+					Intent intent = new Intent().setClass(OrderTakeOutActivity.this, MenuActivity.class);
+					startActivity(intent);
 					finish();
 
 					break;

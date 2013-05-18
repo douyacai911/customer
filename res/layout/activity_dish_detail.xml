@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView3"
         android:layout_alignLeft="@+id/textView6"
-        android:text="TextView" />
+        android:text="TextView"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textView8"
@@ -35,7 +36,8 @@
         android:layout_alignBottom="@+id/textView4"
         android:layout_alignLeft="@+id/textView7"
         android:text="TextView"
-        android:width="180dp" />
+        android:width="180dp" 
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textView9"
@@ -50,7 +52,7 @@
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/progressBar1"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView9"
         android:layout_marginTop="22dp" >
@@ -92,7 +94,8 @@
         android:layout_alignBottom="@+id/mDishname"
         android:layout_marginLeft="50dp"
         android:layout_toRightOf="@+id/mDishname"
-        android:text="TextView" />
+        android:text="TextView"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textView6"
@@ -101,7 +104,8 @@
         android:layout_alignBaseline="@+id/mPrice"
         android:layout_alignBottom="@+id/mPrice"
         android:layout_alignLeft="@+id/textView5"
-        android:text="TextView" />
+        android:text="TextView"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/button1"
@@ -129,5 +133,22 @@
         android:layout_marginTop="11dp"
         android:layout_toRightOf="@+id/textView3"
         android:text="暂无评价" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignLeft="@+id/progressBar1"
+        android:text="元" />
 
 </RelativeLayout>

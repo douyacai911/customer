@@ -66,11 +66,15 @@ public class DishDetailActivity extends Activity {
 		this.mainHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				// findViewById(R.id.progressBar1).setVisibility(View.GONE);
+				findViewById(R.id.progressBar1).setVisibility(View.GONE);
 				dishname.setText(theDishname);
 				price.setText(thePrice);
 				description.setText(theDescription);
 				category.setText(m[theCategory]);
+				dishname.setVisibility(0);
+				price.setVisibility(0);
+				description.setVisibility(0);
+				category.setVisibility(0);
 				if (msg.what == -321) {
 					havenocomment.setVisibility(View.GONE);
 					listItemAdapter = new RatingbarAdapter(
