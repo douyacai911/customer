@@ -53,7 +53,7 @@ public class BeginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_begin);
 		app = (TheApplication) getApplication();
-
+		setTitle("餐厅一览");
 		instance = this; //指定关闭用
 		
 		list = (ListView) findViewById(R.id.ListView01);

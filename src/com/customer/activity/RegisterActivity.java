@@ -29,7 +29,7 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-
+		setTitle("зЂВс");
 		app = (TheApplication) getApplication(); 
 		userText = (EditText)findViewById(R.id.userText);
 		pwdText = (EditText)findViewById(R.id.pwdText);

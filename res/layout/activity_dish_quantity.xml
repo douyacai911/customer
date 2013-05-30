@@ -83,15 +83,6 @@
         android:layout_marginTop="48dp"
         android:text="份数" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/spinner1"
-        android:layout_marginTop="14dp"
-        android:text="总价" />
-
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -108,5 +99,14 @@
         android:layout_below="@+id/textView5"
         android:layout_marginTop="33dp"
         android:layout_toRightOf="@+id/button1" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="50dp"
+        android:text="总价" />
 
 </RelativeLayout>

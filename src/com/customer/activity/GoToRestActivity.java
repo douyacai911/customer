@@ -54,7 +54,7 @@ public class GoToRestActivity extends Activity {
 		eremark = (EditText) findViewById(R.id.editText2);
 		trestaddress = (TextView) findViewById(R.id.textView2);
 		trestaddress.setText(app.getRestAddress());
-
+		setTitle("添加订单信息");
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
@@ -89,8 +89,6 @@ public class GoToRestActivity extends Activity {
 						Uri uri = Uri.parse("geo:0,0?q=" + restlat + ","
 								+ restlon + "(" + app.getRestname()
 								+ ")&hl=zh&z=15");
-						String url = "http://ditu.google.cn/maps?hl=zh&mrt=loc&q="
-								+ restlat + "," + restlon;
 						Intent intent = new Intent(Intent.ACTION_VIEW, uri);// LabelName是标签内容
 																			// lat
 																			// long
@@ -304,10 +302,6 @@ public class GoToRestActivity extends Activity {
 		SmsManager sms = SmsManager.getDefault();
 		PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this,
 				GoToRestActivity.class), 0);
-		// if message's length more than 70 ,
-		// then call divideMessage to dive message into several part ,and call
-		// sendTextMessage()
-		// else direct call sendTextMessage()
 		if (message.length() > 70) {
 			ArrayList<String> msgs = sms.divideMessage(message);
 			for (String msg : msgs) {

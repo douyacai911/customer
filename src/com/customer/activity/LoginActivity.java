@@ -32,7 +32,7 @@ public class LoginActivity extends Activity{
 		//实例化EditText
 		userText = (EditText)findViewById(R.id.editText1);
 		pwdText = (EditText)findViewById(R.id.editText2);
-		
+		setTitle("欢迎使用餐饮服务平台--顾客版");
 		instance = this; //指定关闭用
 		 
 		

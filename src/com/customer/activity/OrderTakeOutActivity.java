@@ -49,7 +49,7 @@ public class OrderTakeOutActivity extends Activity {
 		time.setTextColor(Color.RED);
 		eremark = (EditText) findViewById(R.id.editText2);
 		ecusaddress = (EditText) findViewById(R.id.textView2);
-
+		setTitle("添加订单信息");
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {

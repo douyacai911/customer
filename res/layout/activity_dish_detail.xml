@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"
-        android:layout_alignLeft="@+id/progressBar1"
+        android:layout_toRightOf="@+id/button1"
         android:text="元" />
 
 </RelativeLayout>
