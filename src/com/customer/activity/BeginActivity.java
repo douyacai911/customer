@@ -48,58 +48,63 @@ public class BeginActivity extends Activity {
 	private double mylon = 0;
 	private double mylat = 0;
 	private TheApplication app;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_begin);
 		app = (TheApplication) getApplication();
-		setTitle("²ÍÌüÒ»ÀÀ");
-		instance = this; //Ö¸¶¨¹Ø±ÕÓÃ
-		
+		setTitle("é¤å…ä¸€è§ˆ");
+		instance = this; // æŒ‡å®šå…³é—­ç”¨
+
 		list = (ListView) findViewById(R.id.ListView01);
 		customerid = app.getCustomerid();
-		
+
 		LocationManager loctionManager;
-		String contextService=Context.LOCATION_SERVICE;
-		//Í¨¹ıÏµÍ³·şÎñ£¬È¡µÃLocationManager¶ÔÏó
-		loctionManager=(LocationManager) getSystemService(contextService);
-		
+		String contextService = Context.LOCATION_SERVICE;
+		// é€šè¿‡ç³»ç»ŸæœåŠ¡ï¼Œå–å¾—LocationManagerå¯¹è±¡
+		loctionManager = (LocationManager) getSystemService(contextService);
+
 		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);//¸ß¾«¶È
-		criteria.setAltitudeRequired(false);//²»ÒªÇóº£°Î
-		criteria.setBearingRequired(false);//²»ÒªÇó·½Î»
-		criteria.setCostAllowed(true);//ÔÊĞíÓĞ»¨·Ñ
-		criteria.setPowerRequirement(Criteria.POWER_LOW);//µÍ¹¦ºÄ
-		//´Ó¿ÉÓÃµÄÎ»ÖÃÌá¹©Æ÷ÖĞ£¬Æ¥ÅäÒÔÉÏ±ê×¼µÄ×î¼ÑÌá¹©Æ÷
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);// é«˜ç²¾åº¦
+		criteria.setAltitudeRequired(false);// ä¸è¦æ±‚æµ·æ‹”
+		criteria.setBearingRequired(false);// ä¸è¦æ±‚æ–¹ä½
+		criteria.setCostAllowed(true);// å…è®¸æœ‰èŠ±è´¹
+		criteria.setPowerRequirement(Criteria.POWER_LOW);// ä½åŠŸè€—
+		// ä»å¯ç”¨çš„ä½ç½®æä¾›å™¨ä¸­ï¼ŒåŒ¹é…ä»¥ä¸Šæ ‡å‡†çš„æœ€ä½³æä¾›å™¨
 		String provider = loctionManager.getBestProvider(criteria, true);
-		//»ñµÃ×îºóÒ»´Î±ä»¯µÄÎ»ÖÃ
+		// è·å¾—æœ€åä¸€æ¬¡å˜åŒ–çš„ä½ç½®
 		Location location = loctionManager.getLastKnownLocation(provider);
-		mylon = location.getLongitude();
-		mylat = location.getLatitude();
-		
-		
-		
-		
+		if (location == null) {
+			mylon = 0;
+			mylat = 0;
+
+		} else {
+			mylon = location.getLongitude();
+			mylat = location.getLatitude();
+		}
+
 		new Thread(progressThread).start();
-		
+
 		findViewById(R.id.button2).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						Intent intent = new Intent().setClass(BeginActivity.this, MyOrderActivity.class);
+						Intent intent = new Intent().setClass(
+								BeginActivity.this, MyOrderActivity.class);
 						startActivity(intent);
 					}
 				});
 
-	         
-		// Ìí¼Óµã»÷
+		// æ·»åŠ ç‚¹å‡»
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				
-				HashMap<String, Object> thisrest = (HashMap<String, Object>) arg0.getItemAtPosition(arg2);
+
+				HashMap<String, Object> thisrest = (HashMap<String, Object>) arg0
+						.getItemAtPosition(arg2);
 				int thisrestid = (Integer) thisrest.get("restid");
 				boolean isdelivery = (Boolean) thisrest.get("delivery");
 				String restname = (String) thisrest.get("restname");
@@ -112,37 +117,39 @@ public class BeginActivity extends Activity {
 				app.setRestAddress(restaddress);
 				app.setRestLocation(restlocation);
 				app.setRestTel(resttel);
-				Intent intent = new Intent().setClass(BeginActivity.this, MenuActivity.class);
-//				Bundle bundle = new Bundle();
-//				bundle.putInt("restid", thisrestid);
-//				bundle.putBoolean("delivery",isdelivery);
-//				bundle.putString("restname", restname);
-//				bundle.putInt("customerid", customerid);
-//				intent.putExtras(bundle);
+				Intent intent = new Intent().setClass(BeginActivity.this,
+						MenuActivity.class);
+				// Bundle bundle = new Bundle();
+				// bundle.putInt("restid", thisrestid);
+				// bundle.putBoolean("delivery",isdelivery);
+				// bundle.putString("restname", restname);
+				// bundle.putInt("customerid", customerid);
+				// intent.putExtras(bundle);
 				startActivity(intent);
 			}
 		});
-		
+
 		this.mainHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				// findViewById(R.id.progressBar1).setVisibility(View.GONE);
-				if(msg.what==-123){
-					Toast.makeText(BeginActivity.this, "ÉĞÎ´ÓĞ²ÍÌü×¢²á",Toast.LENGTH_SHORT).show();
-				}else{
-				listItemAdapter = new SimpleAdapter(BeginActivity.this,
-						(ArrayList<HashMap<String, Object>>) msg.obj,// Êı¾İÔ´
-						R.layout.rest_list_layout,// ListItemµÄXMLÊµÏÖ
-						// ¶¯Ì¬Êı×éÓëImageItem¶ÔÓ¦µÄ×ÓÏî
-						new String[] { "restname", "distance" },//TODO
-						// ImageItemµÄXMLÎÄ¼şÀïÃæµÄÒ»¸öImageView,Á½¸öTextView ID
-						new int[] { R.id.RestName, R.id.Distance }
+				if (msg.what == -123) {
+					Toast.makeText(BeginActivity.this, "å°šæœªæœ‰é¤å…æ³¨å†Œ",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					listItemAdapter = new SimpleAdapter(BeginActivity.this,
+							(ArrayList<HashMap<String, Object>>) msg.obj,// æ•°æ®æº
+							R.layout.rest_list_layout,// ListItemçš„XMLå®ç°
+							// åŠ¨æ€æ•°ç»„ä¸ImageItemå¯¹åº”çš„å­é¡¹
+							new String[] { "restname", "distance" },// TODO
+							// ImageItemçš„XMLæ–‡ä»¶é‡Œé¢çš„ä¸€ä¸ªImageView,ä¸¤ä¸ªTextView ID
+							new int[] { R.id.RestName, R.id.Distance }
 
-				);
+					);
 
-				// Ìí¼Ó²¢ÇÒÏÔÊ¾
-				list.setAdapter(listItemAdapter);
-				  
+					// æ·»åŠ å¹¶ä¸”æ˜¾ç¤º
+					list.setAdapter(listItemAdapter);
+
 				}
 
 				super.handleMessage(msg);
@@ -150,36 +157,39 @@ public class BeginActivity extends Activity {
 
 		};
 	}
+
 	Runnable progressThread = new Runnable() {
 		@Override
 		public void run() {
 			Message msg = new Message();
 			new Thread();
-			Object flag = (Object)jsonToRest(mylon,mylat,customerid);
-			
-			if(flag==null){
+			Object flag = (Object) jsonToRest(mylon, mylat, customerid);
+
+			if (flag == null) {
 				msg.what = -123;
-			}else{
+			} else {
 				msg.obj = flag;
 			}
 			mainHandler.sendMessage(msg);
-			
+
 		}
 	};
 
 	private String goSearchRest(double lon, double lat, int customerid) {
-		// ²éÑ¯²ÎÊı
+		// æŸ¥è¯¢å‚æ•°
 
-		String registerString = "customerid=" + customerid + "&lon=" + lon + "&lat=" + lat;
+		String registerString = "customerid=" + customerid + "&lon=" + lon
+				+ "&lat=" + lat;
 		// URL
 		String url = HttpUtil.BASE_URL + "RestListServlet?" + registerString;
-		// ²éÑ¯·µ»Ø½á¹û
+		// æŸ¥è¯¢è¿”å›ç»“æœ
 		return HttpUtil.queryStringForPost(url);
 	}
 
-	private ArrayList<HashMap<String, Object>> jsonToRest(double lon,double lat,int customerid) {
-		String jsonString = goSearchRest(lon,lat,customerid);
-		if(jsonString.equals("-1")){
+	private ArrayList<HashMap<String, Object>> jsonToRest(double lon,
+			double lat, int customerid) {
+		String jsonString = goSearchRest(lon, lat, customerid);
+		if (jsonString.equals("-1")) {
 			return null;
 		}
 
@@ -198,7 +208,7 @@ public class BeginActivity extends Activity {
 				String address = rest.getString("address");
 				String location = rest.getString("location");
 				String tel = rest.getString("tel");
-				map.put("distance", "Ïà¾à "+String.valueOf(distance)+" Ã×");
+				map.put("distance", "ç›¸è· " + String.valueOf(distance) + " ç±³");
 				map.put("restname", restname);
 				map.put("delivery", delivery);
 				map.put("restid", restid);
@@ -206,8 +216,7 @@ public class BeginActivity extends Activity {
 				map.put("location", location);
 				map.put("tel", tel);
 				map.put("index", i);
-				
-				
+
 				listItem.add(map);
 			}
 			return listItem;
@@ -220,65 +229,63 @@ public class BeginActivity extends Activity {
 		}
 
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.begin, menu);
 		return true;
 	}
-	
+
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        switch(item.getItemId())//µÃµ½±»µã»÷µÄitemµÄitemId
-        {
-        case R.id.action_settings://ÕâÀïµÄId¾ÍÊÇ²¼¾ÖÎÄ¼şÖĞ¶¨ÒåµÄId£¬ÔÚÓÃR.id.XXXµÄ·½·¨»ñÈ¡³öÀ´
-        	Intent intent = new Intent().setClass(BeginActivity.this, EditInfoActivity.class);
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		switch (item.getItemId())// å¾—åˆ°è¢«ç‚¹å‡»çš„itemçš„itemId
+		{
+		case R.id.action_settings:// è¿™é‡Œçš„Idå°±æ˜¯å¸ƒå±€æ–‡ä»¶ä¸­å®šä¹‰çš„Idï¼Œåœ¨ç”¨R.id.XXXçš„æ–¹æ³•è·å–å‡ºæ¥
+			Intent intent = new Intent().setClass(BeginActivity.this,
+					EditInfoActivity.class);
 			startActivity(intent);
-            break;
-       
-        }
-        return true;
-    }
+			break;
+
+		}
+		return true;
+	}
+
 	@Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        
-        if(keyCode==KeyEvent.KEYCODE_BACK){
-        	final AlertDialog.Builder builder = new Builder(
-					BeginActivity.this);
-			builder.setTitle("È·ÈÏÍË³ö")
-					.setMessage("È·¶¨ÒªÍË³ö³ÌĞòÂğ£¿")
-					.setPositiveButton(
-							"È·¶¨",
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			final AlertDialog.Builder builder = new Builder(BeginActivity.this);
+			builder.setTitle("ç¡®è®¤é€€å‡º")
+					.setMessage("ç¡®å®šè¦é€€å‡ºç¨‹åºå—ï¼Ÿ")
+					.setPositiveButton("ç¡®å®š",
 							new DialogInterface.OnClickListener() {
 								public void onClick(
-										DialogInterface dialoginterface,
-										int i) {
-									// °´Å¥ÊÂ¼ş
-									  Intent exit = new Intent(Intent.ACTION_MAIN);
-					                    exit.addCategory(Intent.CATEGORY_HOME);
-					                    exit.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					                    startActivity(exit);
-					                    System.exit(0);
+										DialogInterface dialoginterface, int i) {
+									// æŒ‰é’®äº‹ä»¶
+									Intent exit = new Intent(Intent.ACTION_MAIN);
+									exit.addCategory(Intent.CATEGORY_HOME);
+									exit.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+									startActivity(exit);
+									System.exit(0);
 
 								}
 							})
-					.setNegativeButton(
-							"È¡Ïû",
+					.setNegativeButton("å–æ¶ˆ",
 							new DialogInterface.OnClickListener() {
 								@Override
-								public void onClick(
-										DialogInterface dialog,
+								public void onClick(DialogInterface dialog,
 										int which) {
 									dialog.dismiss();
 								}
-							}).show(); //µ¯³öÈ·¶¨ÍË³ö¶Ô»°¿ò
-          
-            //²»ĞèÒªÖ´ĞĞ¸¸ÀàµÄµã»÷ÊÂ¼ş£¬Ö±½Óreturn
-            return true;
-        }
-        //¼ÌĞøÖ´ĞĞ¸¸ÀàµÄÆäËûµã»÷ÊÂ¼ş
-        return super.onKeyDown(keyCode, event);
-    }
+							}).show(); // å¼¹å‡ºç¡®å®šé€€å‡ºå¯¹è¯æ¡†
+
+			// ä¸éœ€è¦æ‰§è¡Œçˆ¶ç±»çš„ç‚¹å‡»äº‹ä»¶ï¼Œç›´æ¥return
+			return true;
+		}
+		// ç»§ç»­æ‰§è¡Œçˆ¶ç±»çš„å…¶ä»–ç‚¹å‡»äº‹ä»¶
+		return super.onKeyDown(keyCode, event);
+	}
 }
